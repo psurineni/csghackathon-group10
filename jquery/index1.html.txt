@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+<form action="dln_redirection1.php" method="post"	onsubmit="return allLetter(dln_number)" name='myForm'>
+    <div><label >Please Enter your DLN Number</label>
+    <input type="text" name="dln_number" placeholder="Driving License Number" autocomplete="off" required> &emsp; 
+	
+                       		<br><br><button class="btn btn-primary" type="submit">Login</button></div>
+
+</form>
+</body>
+</html>

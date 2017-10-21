@@ -1,0 +1,79 @@
+<?php
+ob_start();
+
+session_start();
+
+require('connect.php');
+
+if (isset($_POST['dln_number'])){
+
+    $driverlicense = $_POST['dln_number'];
+
+    $query = "SELECT * FROM `driver_details` WHERE dln='$driverlicense'";
+
+    $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
+    $count = mysqli_num_rows($result);
+
+    if ($count == 1){
+
+        $_SESSION['dln_number'] = $driverlicense;
+
+    }else{
+
+        $fmsg = "Invalid driver license.";
+
+    }
+
+}
+?>
+<html>
+<head>
+<script src="dist/sweetalert.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+</head>
+</html>
+<?php
+
+if (isset($_SESSION['dln_number'])){
+
+    $driverlicense = $_SESSION['dln_number'];
+
+    header("Location: dashboards/index.php");
+
+
+
+}else {
+
+echo "<script>
+
+	
+swal({
+  title: 'Your DLN number is not registered with us.',
+  text: 'Do you want to register now?',
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#DD6B55',
+  confirmButtonText: 'Yes, I want to Register!',
+  cancelButtonText: 'No, Cancel',
+  closeOnConfirm: false,
+  closeOnCancel: false
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href='register1.html';
+  } else {
+    window.location.href='index.html';
+  }
+});
+
+
+	//alert('DLN Number is not Registered, Please Register and Try Again.');
+
+	//window.location.href='index.html';
+
+	</script>";
+
+} 
+ob_end_flush(); 
+?>
